@@ -17,10 +17,6 @@
                     You are logged in!
                 </div>
 
-                <div class="my-message">
-                    <span><p>oioioi</p></span>
-                </div>
-
             </div>
         </div>
     </div>

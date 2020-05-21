@@ -9,6 +9,11 @@ use App\Task;
 
 class TaskController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -26,5 +31,13 @@ class TaskController extends Controller
             'done' => $request->done,
         ]);
         return 'sucesso';
+    }
+
+    public function index(Request $request)
+    {
+        $tasks = Task::all();
+        if ($tasks->count() > 0) {
+            return view('tasks/index', ['tasks' => $tasks]);
+        }
     }
 }
