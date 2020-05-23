@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 use App\Task;
+use App\User;
 
 class TaskController extends Controller
 {
@@ -25,19 +26,23 @@ class TaskController extends Controller
             return 'erro de validacao' . strval($validator->errors());
         }
 
-        $task = Task::Create([
+        $task = Task::create([
             'name' => $request->name,
             'description' => $request->description,
             'done' => $request->done,
+            'user_id' => auth()->id(),
         ]);
-        return 'sucesso';
+
+        $task->user()->associate($user)->save();
+        return 'sucesso' . strval($task);
     }
 
-    public function index(Request $request)
+    public function index()
     {
         $tasks = Task::all();
         if ($tasks->count() > 0) {
             return view('tasks/index', ['tasks' => $tasks]);
         }
+        return 'no tasks';
     }
 }

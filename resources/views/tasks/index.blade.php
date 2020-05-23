@@ -7,16 +7,16 @@
             <div class="card">
 
                 @foreach ($tasks as $task):
-                <div class="card-body">
-                    <div class="my-message">
-                        <span><p>{{ $task->name }}{{ $task->description }}</p></span>
-                        @if ($task->done):
-                            <span>Feita</span>
-                        @else:
-                            <span>A fazer</span>
-                        @endif;
+                    <div class="card-body">
+                        <div class="my-message">
+                            <span><p>{{ $task->name }}{{ $task->description }}</p></span>
+                            @if ($task->done):
+                                <span>Feita</span>
+                            @else:
+                                <span>A fazer</span>
+                            @endif;
+                        </div>
                     </div>
-                </div>
                 @endforeach
 
 
