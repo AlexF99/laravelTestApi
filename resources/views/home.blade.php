@@ -14,7 +14,8 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    <a class="btn btn-primary" href="/tasks">see your tasks</a>
+                    <a class="btn btn-primary" href="/newtask">create new task</a>
                 </div>
 
             </div>
