@@ -25,23 +25,39 @@ class TaskController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:500',
             'description' => 'required|max:500',
-            'done' => 'required|boolean',
         ]);
         if ($validator->fails()) {
-            return 'erro de validacao' . strval($validator->errors());
+            return 'validation error!' . strval($validator->errors());
         }
 
         $task = Task::create([
             'name' => $request->name,
             'description' => $request->description,
-            'done' => $request->done,
+            'done' => 0,
             'user_id' => auth()->id(),
         ]);
 
         $user = User::find(auth()->id());
 
         $task->user()->associate($user)->save();
-        return $this->index();
+        return view('tasks/create', ['message' => 'task created successfully!']);
+    }
+
+    public function destroy(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|integer',
+        ]);
+        if ($validator->fails()) {
+            return 'validation error!' . strval($validator->errors());
+        }
+
+        $task = Task::find($request->id);
+        if (!$task) {
+            return redirect('/tasks');
+        }
+        $task->delete();
+        return redirect('/tasks');
     }
 
     public function index()
@@ -51,6 +67,6 @@ class TaskController extends Controller
         if ($tasks->count() > 0) {
             return view('tasks/index', ['tasks' => $tasks]);
         }
-        return 'no tasks';
+        return view('tasks/create', ['message' => 'you have no tasks yet, create some!']);
     }
 }
