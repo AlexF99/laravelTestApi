@@ -14,9 +14,9 @@
                         <div class="row">
                             <span class="col-2"><p>{{ $task->name }}</p></span><span class="col-6"><p>{{ $task->description }}</p></span>
                             @if ($task->done)
-                                <span class="col-2">Feita</span>
+                                <span class="col-2">Status: Done</span>
                             @else
-                                <span class="col-2 align-items-center">A fazer</span>
+                                <span class="col-2">Status: Not done</span>
                             @endif
                             <div class="col-2">
                                 <form action="/deleteTask" method="post">
