@@ -7,10 +7,10 @@
             @if (isset($message)):
                 <p>{{ $message }}</p>
             @endif
-            <a href="/newtask">create new task</a>
+            <a class="btn btn-primary mb-2" href="/newtask">create new task</a>
             @foreach ($tasks as $task)
-                <div class="row mb-3 p-3 bg-secondary rounded-sm">
-                    <div class="col-8">
+                <div class="row mb-3 p-3 rounded-sm" style="background-color: #eee;">
+                    <div class="col-12">
                         <div class="row">
                             <span class="col-2"><p>{{ $task->name }}</p></span><span class="col-6"><p>{{ $task->description }}</p></span>
                             @if ($task->done)
@@ -26,26 +26,25 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-md-12 mt-3">
                         <div class="update-form">
                             <form class="row" action="/updateTask" method="post">
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $task->id }}">
-                                <div class="col-6">
+                                <div class="col-1">
                                     <input id="done" type="radio" name="done" value="1">
                                     <label for="done">done</label>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-2">
                                     <input id="notdone" type="radio" name="done" value="0">
                                     <label for="notdone">not done</label>
                                 </div>
-                                <input type="text" name="name" value="" placeholder="task new name">
-                                <input type="text" name="description" value="" placeholder="task new description">
-                                <button class="btn btn-primary" type="submit" name="button">update</button>
+                                <input style="height: 33px;" class="col-3" type="text" name="name" value="" placeholder="task new name">
+                                <input style="height: 33px;" class="col-4" type="text" name="description" value="" placeholder="task new description">
+                                <button style="height: 33px;" class="col-2 btn btn-primary" type="submit" name="button">update</button>
                             </form>
                         </div>
                     </div>
-
                 </div>
             @endforeach
         </div>
