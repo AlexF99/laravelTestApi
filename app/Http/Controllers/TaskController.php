@@ -48,21 +48,25 @@ class TaskController extends Controller
         $validator = Validator::make($request->all(), [
             'id' => 'required|integer',
             'name' => 'max:500',
+            'done' => 'boolean',
             'description' => 'max:500',
         ]);
         if ($validator->fails()) {
             return 'validation error!' . strval($validator->errors());
         }
         $task = Task::find($request->id);
-        if ($request->has('name')) {
+        if ($request->has('name') && $request->name != '') {
             $task->name = $request->name;
         }
-        if ($request->has('description')) {
+        if ($request->has('description') && $request->description != '') {
             $task->description = $request->description;
+        }
+        if ($request->has('done')) {
+            $task->done = $request->done;
         }
 
         $task->save();
-        return 'task updated!';
+        return redirect('/tasks');
     }
 
     public function destroy(Request $request)

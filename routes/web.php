@@ -23,3 +23,4 @@ Route::get('/tasks', 'TaskController@index');
 Route::get('/newtask', 'TaskController@create');
 Route::post('/newtask', 'TaskController@store');
 Route::post('/deleteTask', 'TaskController@destroy');
+Route::post('/updateTask', 'TaskController@update');
