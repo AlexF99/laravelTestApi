@@ -43,6 +43,28 @@ class TaskController extends Controller
         return view('tasks/create', ['message' => 'task created successfully!']);
     }
 
+    public function update(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|integer',
+            'name' => 'max:500',
+            'description' => 'max:500',
+        ]);
+        if ($validator->fails()) {
+            return 'validation error!' . strval($validator->errors());
+        }
+        $task = Task::find($request->id);
+        if ($request->has('name')) {
+            $task->name = $request->name;
+        }
+        if ($request->has('description')) {
+            $task->description = $request->description;
+        }
+
+        $task->save();
+        return 'task updated!';
+    }
+
     public function destroy(Request $request)
     {
         $validator = Validator::make($request->all(), [
