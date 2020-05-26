@@ -69,6 +69,24 @@ class TaskController extends Controller
         return redirect('/tasks');
     }
 
+    public function show(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|integer',
+        ]);
+        if ($validator->fails()) {
+            return 'validation error!' . strval($validator->errors());
+        }
+
+        $task = Task::find($request->id);
+
+        if(!$task) {
+            return 'task not found';
+        }
+
+        return json_encode($task);
+    }
+
     public function destroy(Request $request)
     {
         $validator = Validator::make($request->all(), [
