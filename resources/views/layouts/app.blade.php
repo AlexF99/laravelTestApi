@@ -12,12 +12,20 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @if (\Request::route()->getName() == 'tasks')
+        <style media="screen">
+            .unactive {
+                display: none;
+            }
+        </style>
+    @endif
 </head>
 <body>
     <div id="app">
@@ -76,5 +84,21 @@
             @yield('content')
         </main>
     </div>
+    @if (\Request::route()->getName() == 'tasks')
+        <script type="text/javascript">
+            const updateBtn = document.querySelectorAll('#activate-update-form');
+            const updateForm = document.querySelectorAll('.update-form');
+
+
+
+            updateBtn.forEach((btn, index) => {
+                btn.addEventListener("click", () => {
+                    console.log(index);
+                    updateForm[index].classList.remove('unactive');
+                }, true);
+            });
+
+        </script>
+    @endif
 </body>
 </html>
